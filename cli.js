@@ -29,7 +29,7 @@ args.command(['theme', 't'], 'Sets a theme.', (name, sub) => {
 args.command(['link'], 'Creates a symlink for the current plugin.', () => {
   const plugin = path.basename(process.cwd());
   return api.createSymLink(plugin, process.cwd())
-    .then(data => {
+    .then((data) => {
       console.log(chalk.green(`Linked: ${data.srcPath} -> ${data.destPath}`));
     })
     .catch(err => console.error(chalk.red(err)));
@@ -38,14 +38,14 @@ args.command(['link'], 'Creates a symlink for the current plugin.', () => {
 args.command(['unlink'], 'Removes the symlink for the current plugin.', () => {
   const plugin = path.basename(process.cwd());
   return api.removeSymLink(plugin)
-    .then(data => {
+    .then((data) => {
       console.log(chalk.green(`Unlinked: ${data.destPath}`));
     })
     .catch(err => console.error(chalk.red(err)));
 });
 
 args.command(['config'], 'Display the raw config.', () => api.getConfig()
-  .then(data => {
+  .then((data) => {
     console.log(chalk.green(JSON.stringify(data, null, 2)));
   })
   .catch(err => console.error(chalk.red(err))));

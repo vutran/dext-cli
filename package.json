@@ -4,7 +4,7 @@
   "description": "",
   "main": "./cli.js",
   "scripts": {
-    "lint": "eslint app"
+    "lint": "eslint cli.js"
   },
   "bin": {
     "dpm": "./cli.js"
