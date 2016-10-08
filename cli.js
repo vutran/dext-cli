@@ -3,20 +3,35 @@
 const path = require('path');
 const args = require('args');
 const chalk = require('chalk');
+const ora = require('ora');
 const { api, utils } = require('dext-core-utils');
 
 args.command(['install', 'i'], 'Install a new plugin or theme.', (name, sub) => {
   const plugin = sub[0];
+  const spinner = ora('Installing...').start();
   return api.install(plugin, utils.paths.getPluginPath(plugin))
-    .then(() => console.log(chalk.green(`${plugin} installed successfully!`)))
-    .catch(err => console.error(chalk.red(err)));
+    .then(() => {
+      spinner.succeed();
+      console.log(chalk.green(`${plugin} installed successfully!`));
+    })
+    .catch(err => {
+      spinner.fail();
+      console.error(chalk.red(err));
+    });
 });
 
 args.command(['uninstall', 'u'], 'Uninstall a plugin or theme.', (name, sub) => {
   const plugin = sub[0];
+  const spinner = ora('Uninstalling...').start();
   return api.uninstall(plugin, utils.paths.getPluginPath(plugin))
-    .then(() => console.log(chalk.green(`${plugin} uninstalled successfully!`)))
-    .catch(err => console.error(chalk.red(err)));
+    .then(() => {
+      spinner.succeed();
+      console.log(chalk.green(`${plugin} uninstalled successfully!`));
+    })
+    .catch(err => {
+      spinner.fail();
+      console.error(chalk.red(err));
+    });
 });
 
 args.command(['theme', 't'], 'Sets a theme.', (name, sub) => {
