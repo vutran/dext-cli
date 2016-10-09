@@ -8,11 +8,11 @@ const { api, utils } = require('dext-core-utils');
 
 args.command(['install', 'i'], 'Install a new plugin or theme.', (name, sub) => {
   const plugin = sub[0];
-  const spinner = ora('Installing...').start();
+  const spinner = ora(`${plugin} : Installing...`).start();
   return api.install(plugin, utils.paths.getPluginPath(plugin))
     .then(() => {
+      spinner.text = chalk.green(`${plugin} : Installed successfully!`);
       spinner.succeed();
-      console.log(chalk.green(`${plugin} installed successfully!`));
     })
     .catch(err => {
       spinner.fail();
@@ -22,11 +22,11 @@ args.command(['install', 'i'], 'Install a new plugin or theme.', (name, sub) => 
 
 args.command(['uninstall', 'u'], 'Uninstall a plugin or theme.', (name, sub) => {
   const plugin = sub[0];
-  const spinner = ora('Uninstalling...').start();
+  const spinner = ora(`${plugin} : Uninstalling...`).start();
   return api.uninstall(plugin, utils.paths.getPluginPath(plugin))
     .then(() => {
+      spinner.text = chalk.green(`${plugin} : Uninstalled successfully!`);
       spinner.succeed();
-      console.log(chalk.green(`${plugin} uninstalled successfully!`));
     })
     .catch(err => {
       spinner.fail();
