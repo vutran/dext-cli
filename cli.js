@@ -36,27 +36,44 @@ args.command(['uninstall', 'u'], 'Uninstall a plugin or theme.', (name, sub) => 
 
 args.command(['theme', 't'], 'Sets a theme.', (name, sub) => {
   const theme = sub[0];
+  const spinner = ora(`${theme} : setting theme...`).start();
   return api.setTheme(theme)
-  .then(() => console.log(chalk.green(`${theme} has been set successfully!`)))
-  .catch(err => console.error(chalk.red(err)));
+    .then(() => {
+      spinner.text = chalk.green(`${theme} : Theme has been set successfully!`);
+      spinner.succeed();
+    })
+    .catch(err => {
+      spinner.fail();
+      console.error(chalk.red(err));
+    });
 });
 
 args.command(['link'], 'Creates a symlink for the current plugin.', () => {
   const plugin = path.basename(process.cwd());
+  const spinner = ora(`Linking...`).start();
   return api.createSymLink(plugin, process.cwd())
     .then((data) => {
-      console.log(chalk.green(`Linked: ${data.srcPath} -> ${data.destPath}`));
+      spinner.text = chalk.green(`Linked: ${data.srcPath} -> ${data.destPath}`);
+      spinner.succeed();
     })
-    .catch(err => console.error(chalk.red(err)));
+    .catch(err => {
+      spinner.fail();
+      console.error(chalk.red(err));
+    });
 });
 
 args.command(['unlink'], 'Removes the symlink for the current plugin.', () => {
   const plugin = path.basename(process.cwd());
+  const spinner = ora(`Unlinking...`).start();
   return api.removeSymLink(plugin)
     .then((data) => {
-      console.log(chalk.green(`Unlinked: ${data.destPath}`));
+      spinner.text = chalk.green(`Unlinked: ${data.destPath}`);
+      spinner.succeed();
     })
-    .catch(err => console.error(chalk.red(err)));
+    .catch(err => {
+      spinner.fail();
+      console.error(chalk.red(err));
+    });
 });
 
 args.command(['config'], 'Display the raw config.', () => api.getConfig()
