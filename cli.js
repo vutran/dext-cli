@@ -8,79 +8,88 @@ const { api, utils } = require('dext-core-utils');
 
 args.command(['install', 'i'], 'Install a new plugin or theme.', (name, sub) => {
   const plugin = sub[0];
-  const spinner = ora(`${plugin} : Installing...`).start();
+  const spinner = ora(chalk.green(`${plugin} : Installing...`)).start();
   return api.install(plugin, utils.paths.getPluginPath(plugin))
     .then(() => {
+      spinner.color = 'green';
       spinner.text = chalk.green(`${plugin} : Installed successfully!`);
       spinner.succeed();
     })
-    .catch(err => {
+    .catch((err) => {
+      spinner.color = 'red';
+      spinner.text = chalk.red(err);
       spinner.fail();
-      console.error(chalk.red(err));
     });
 });
 
 args.command(['uninstall', 'u'], 'Uninstall a plugin or theme.', (name, sub) => {
   const plugin = sub[0];
-  const spinner = ora(`${plugin} : Uninstalling...`).start();
+  const spinner = ora(chalk.green(`${plugin} : Uninstalling...`)).start();
   return api.uninstall(plugin, utils.paths.getPluginPath(plugin))
     .then(() => {
+      spinner.color = 'green';
       spinner.text = chalk.green(`${plugin} : Uninstalled successfully!`);
       spinner.succeed();
     })
-    .catch(err => {
+    .catch((err) => {
+      spinner.color = 'red';
+      spinner.text = chalk.red(err);
       spinner.fail();
-      console.error(chalk.red(err));
     });
 });
 
 args.command(['theme', 't'], 'Sets a theme.', (name, sub) => {
   const theme = sub[0];
-  const spinner = ora(`${theme} : setting theme...`).start();
+  const spinner = ora(chalk.green(`${theme} : setting theme...`)).start();
   return api.setTheme(theme)
     .then(() => {
+      spinner.color = 'green';
       spinner.text = chalk.green(`${theme} : Theme has been set successfully!`);
       spinner.succeed();
     })
-    .catch(err => {
+    .catch((err) => {
+      spinner.color = 'red';
+      spinner.text = chalk.red(err);
       spinner.fail();
-      console.error(chalk.red(err));
     });
 });
 
 args.command(['link'], 'Creates a symlink for the current plugin.', () => {
   const plugin = path.basename(process.cwd());
-  const spinner = ora(`Linking...`).start();
+  const spinner = ora(chalk.green('Linking...')).start();
   return api.createSymLink(plugin, process.cwd())
     .then((data) => {
+      spinner.color = 'green';
       spinner.text = chalk.green(`Linked: ${data.srcPath} -> ${data.destPath}`);
       spinner.succeed();
     })
-    .catch(err => {
+    .catch((err) => {
+      spinner.color = 'red';
+      spinner.text = chalk.red(err);
       spinner.fail();
-      console.error(chalk.red(err));
     });
 });
 
 args.command(['unlink'], 'Removes the symlink for the current plugin.', () => {
   const plugin = path.basename(process.cwd());
-  const spinner = ora(`Unlinking...`).start();
+  const spinner = ora(chalk.green('Unlinking...')).start();
   return api.removeSymLink(plugin)
     .then((data) => {
+      spinner.color = 'green';
       spinner.text = chalk.green(`Unlinked: ${data.destPath}`);
       spinner.succeed();
     })
-    .catch(err => {
+    .catch((err) => {
+      spinner.color = 'red';
+      spinner.text = chalk.red(err);
       spinner.fail();
-      console.error(chalk.red(err));
     });
 });
 
 args.command(['config'], 'Display the raw config.', () => api.getConfig()
-  .then((data) => {
-    console.log(chalk.green(JSON.stringify(data, null, 2)));
-  })
-  .catch(err => console.error(chalk.red(err))));
+  .then(data => console.log(JSON.stringify(data, null, 2)))
+  .catch(err => console.error(chalk.red(err)))
+);
 
 const flags = args.parse(process.argv);
 
