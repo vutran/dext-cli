@@ -1,5 +1,7 @@
 # Dext Package Manager (dpm)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](LICENSE)
+
+[![license](https://img.shields.io/github/license/vutran/dext-cli.svg?maxAge=2592000&style=flat-square)](LICENSE) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/dext-app/Lobby)
+
 
 > [Dext](https://github.com/vutran/dext) command-line interface tool.
 
