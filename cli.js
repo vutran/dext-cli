@@ -14,7 +14,11 @@ args.command(['search', 's'], 'Seach for plugins or themes.', (name, sub) => {
       spinner.color = 'green';
       spinner.text = chalk.green(`Results for "${searchTerm}":`);
       spinner.succeed();
-      console.log(results);
+      if(results.length > 0) {
+        results.forEach(result => console.log(' - ' + result));
+      } else {
+        console.log(chalk.yellow('no packages found'));
+      }
     })
     .catch((err) => {
       spinner.color = 'red';
