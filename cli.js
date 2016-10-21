@@ -10,15 +10,18 @@ args.command(['search', 's'], 'Seach for plugins or themes.', (name, sub) => {
   const searchTerm = sub[0];
   const spinner = ora(chalk.green(`Searching for "${searchTerm}"...`)).start();
   return api.search(searchTerm)
-    .then(results => {
+    .then((results) => {
       spinner.color = 'green';
       spinner.text = chalk.green(`Results for "${searchTerm}":`);
       spinner.succeed();
-      if(results.length > 0) {
-        results.forEach(result => console.log(' - ' + result));
+
+      let resultsMessage;
+      if (results.length) {
+        resultsMessage = results.reduce((prev, result) => `${prev}- ${result.name}: ${result.desc}\n`, '');
       } else {
-        console.log(chalk.yellow('no packages found'));
+        resultsMessage = chalk.yellow('no packages found');
       }
+      console.log(resultsMessage);
     })
     .catch((err) => {
       spinner.color = 'red';

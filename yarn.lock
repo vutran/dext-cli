@@ -309,9 +309,9 @@ del@^2.0.2:
     pinkie-promise "^2.0.0"
     rimraf "^2.2.8"
 
-dext-core-utils@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/dext-core-utils/-/dext-core-utils-0.3.0.tgz#cf0d07326ce31a2a4650d7ed72b43dc83722e92f"
+dext-core-utils@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/dext-core-utils/-/dext-core-utils-0.4.0.tgz#b2e9cec504f550a20cbf87686790512fb4b3d1d9"
   dependencies:
     conf "^0.11.2"
     cross-spawn "^4.0.2"
