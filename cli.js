@@ -8,6 +8,11 @@ const { api, utils } = require('dext-core-utils');
 
 args.command(['search', 's'], 'Seach for plugins or themes.', (name, sub) => {
   const searchTerm = sub[0];
+  if (!searchTerm) {
+    console.log(chalk.yellow('Search must be called with an search term'));
+    return;
+  }
+
   const spinner = ora(chalk.green(`Searching for "${searchTerm}"...`)).start();
   return api.search(searchTerm)
     .then((results) => {
@@ -17,7 +22,9 @@ args.command(['search', 's'], 'Seach for plugins or themes.', (name, sub) => {
 
       let resultsMessage;
       if (results.length) {
-        resultsMessage = results.reduce((prev, result) => `${prev}- ${result.name}: ${result.desc}\n`, '');
+        resultsMessage = results.reduce((prev, result) =>
+          `${prev}- ${result.name}: ${result.desc}\n`, ''
+        );
       } else {
         resultsMessage = chalk.yellow('no packages found');
       }
