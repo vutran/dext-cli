@@ -6,6 +6,11 @@ const chalk = require('chalk');
 const ora = require('ora');
 const { api, utils } = require('dext-core-utils');
 
+let debug = false;
+if (process.env.NODE_ENV === 'development') {
+  debug = true;
+}
+
 args.command(['search', 's'], 'Seach for plugins or themes.', (name, sub) => {
   const searchTerm = sub[0];
   if (!searchTerm) {
@@ -40,7 +45,7 @@ args.command(['search', 's'], 'Seach for plugins or themes.', (name, sub) => {
 args.command(['install', 'i'], 'Install a new plugin or theme.', (name, sub) => {
   const plugin = sub[0];
   const spinner = ora(chalk.green(`${plugin} : Installing...`)).start();
-  return api.install(plugin, utils.paths.getPluginPath(plugin))
+  return api.install(plugin, utils.paths.getPluginPath(plugin), { debug })
     .then(() => {
       spinner.color = 'green';
       spinner.text = chalk.green(`${plugin} : Installed successfully!`);
