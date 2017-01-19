@@ -6,10 +6,7 @@ const chalk = require('chalk');
 const ora = require('ora');
 const { api, utils } = require('dext-core-utils');
 
-let debug = false;
-if (process.env.NODE_ENV === 'development') {
-  debug = true;
-}
+const debug = process.env.NODE_ENV === 'development';
 
 args.command(['search', 's'], 'Seach for plugins or themes.', (name, sub) => {
   const searchTerm = sub[0];
