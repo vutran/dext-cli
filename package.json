@@ -4,7 +4,10 @@
   "description": "",
   "main": "./cli.js",
   "scripts": {
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "format": "npm run format:js && npm run format:md",
+    "format:js": "prettier --write 'cli.js'",
+    "format:md": "prettier --parser markdown --write '*.md'"
   },
   "bin": {
     "dpm": "./cli.js"
@@ -23,13 +26,13 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write --trailing-comma es5 --single-quote --tab-width 4",
+      "prettier --write --trailing-comma es5 --single-quote --tab-width 2",
       "git add"
     ]
   },
   "devDependencies": {
     "husky": "^0.13.4",
     "lint-staged": "^4.0.0",
-    "prettier": "^1.4.4"
+    "prettier": "^1.12.0"
   }
 }
