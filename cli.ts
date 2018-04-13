@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-
-const path = require('path');
-const args = require('args');
-const chalk = require('chalk');
-const ora = require('ora');
-const { api, utils } = require('dext-core-utils');
+import * as path from 'path';
+import * as args from 'args';
+import * as chalk from 'chalk';
+import * as ora from 'ora';
+import { api, utils } from 'dext-core-utils';
 
 const debug = process.env.NODE_ENV === 'development';
 
@@ -143,6 +142,6 @@ args.command(['config'], 'Display the raw config.', () =>
 
 const flags = args.parse(process.argv);
 
-if (Object.keys(flags).length !== 0) {
+if (Object.keys(flags).length > 0) {
   args.showHelp();
 }
