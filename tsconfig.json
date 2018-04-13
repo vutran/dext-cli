@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "target": "es5"
+  },
+  "include": ["./cli.ts"],
+  "exclude": ["node_modules"]
+}
